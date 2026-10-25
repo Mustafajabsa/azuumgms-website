@@ -1,0 +1,9 @@
+{
+  "name": "azzumgms-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Responsive English/Arabic AzzumGMS marketing website with interactive workflow demo",
+  "scripts": {"start": "node server.js", "dev": "node --watch server.js", "test": "node --test tests/*.test.js"},
+  "engines": {"node": ">=18"},
+  "license": "UNLICENSED"
+}
