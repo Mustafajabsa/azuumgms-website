@@ -391,5 +391,16 @@
     tt.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); var f = document.querySelector('.brand'); if (f) setTimeout(function () { f.focus({ preventScroll: true }); }, reduce ? 0 : 700); });
   }
 
+  /* ---------- phone action dock ---------- */
+  var dock = document.querySelector('[data-dock]');
+  if (dock) {
+    var onContact = !!document.querySelector('[data-demo-form]'), foot = document.querySelector('footer');
+    function dUpd() {
+      var nearFoot = foot && foot.getBoundingClientRect().top < innerHeight - 40;
+      dock.classList.toggle('show', !onContact && window.scrollY > innerHeight * .7 && !nearFoot);
+    }
+    window.addEventListener('scroll', function () { requestAnimationFrame(dUpd); }, { passive: true }); dUpd();
+  }
+
   if (isAr()) applyLang('ar');
 })();
