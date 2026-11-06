@@ -1053,3 +1053,56 @@ main { overflow-x: clip; }
 html[dir="rtl"] .tt-tip { transform: translateX(-6px); }
 .to-top:hover .tt-tip, .to-top:focus-visible .tt-tip { opacity: 1; transform: none; }
 @media (max-width: 699px) { .to-top { width: 48px; height: 48px; bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); } .tt-tip { display: none; } }
+
+/* ---------- liquid glass selector ---------- */
+.nav-ind { background: linear-gradient(180deg, rgba(255, 255, 255, .55), rgba(255, 255, 255, .14) 55%, color-mix(in srgb, var(--blue) 14%, rgba(255, 255, 255, .2)));
+  backdrop-filter: blur(3px) saturate(2.2) brightness(1.08) contrast(1.05); -webkit-backdrop-filter: blur(3px) saturate(2.2) brightness(1.08) contrast(1.05);
+  border-radius: 12px; overflow: hidden;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, .95), inset 0 -1px 1px rgba(255, 255, 255, .35), inset 1px 0 2px rgba(255, 255, 255, .4), inset -1px 0 2px rgba(255, 255, 255, .4),
+    inset 0 -6px 12px -6px color-mix(in srgb, var(--blue) 45%, transparent), 0 8px 20px -8px color-mix(in srgb, var(--blue) 55%, transparent), 0 1px 2px rgba(10, 30, 80, .12);
+  transition: left .5s cubic-bezier(.3, 1.35, .4, 1), width .5s cubic-bezier(.3, 1.35, .4, 1), opacity .3s, transform .5s cubic-bezier(.3, 1.35, .4, 1); }
+.nav-ind.moving { transform: scaleY(.86) scaleX(1.06); }
+.nav-ind::after { left: 26%; right: 26%; bottom: 1px; height: 2px; opacity: .9; }
+.lg-spec { position: absolute; left: 8%; right: 8%; top: 1px; height: 46%; border-radius: 10px 10px 50% 50% / 10px 10px 100% 100%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .85), rgba(255, 255, 255, 0)); opacity: .75; pointer-events: none; }
+.lg-rim { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; padding: 1px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, .95), rgba(255, 255, 255, .1) 35%, rgba(255, 255, 255, .05) 60%, color-mix(in srgb, var(--cyan) 60%, #fff) 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+.lg-rim::after { content: ""; position: absolute; top: 18%; bottom: 18%; width: 30%; left: -40%; border-radius: 50%; filter: blur(4px);
+  background: radial-gradient(closest-side, rgba(255, 255, 255, .7), transparent); animation: lgGlint 5s ease-in-out infinite; }
+@keyframes lgGlint { 0%, 70% { left: -40%; } 100% { left: 120%; } }
+.nav a.hot-l, .nav a[aria-current="page"] { text-shadow: 0 1px 0 rgba(255, 255, 255, .6); }
+html[data-eff="dark"] .nav-ind { background: linear-gradient(180deg, rgba(255, 255, 255, .2), rgba(255, 255, 255, .04) 55%, color-mix(in srgb, var(--blue) 25%, rgba(255, 255, 255, .05)));
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, .45), inset 0 -1px 1px rgba(255, 255, 255, .12), inset 0 -6px 12px -6px color-mix(in srgb, var(--blue) 70%, transparent), 0 8px 22px -8px color-mix(in srgb, var(--blue) 75%, transparent); }
+html[data-eff="dark"] .lg-spec { opacity: .35; }
+html[data-eff="dark"] .nav a.hot-l, html[data-eff="dark"] .nav a[aria-current="page"] { text-shadow: none; color: #FFFFFF; }
+/* mobile menu: current tile glassy too */
+@media (max-width: 979px) {
+  .nav a[aria-current="page"] { background: linear-gradient(180deg, rgba(255, 255, 255, .6), rgba(255, 255, 255, .12) 55%, color-mix(in srgb, var(--blue) 16%, transparent));
+    backdrop-filter: blur(4px) saturate(2); -webkit-backdrop-filter: blur(4px) saturate(2);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, .95), inset 0 -6px 12px -6px color-mix(in srgb, var(--blue) 45%, transparent), 0 8px 18px -10px color-mix(in srgb, var(--blue) 60%, transparent); }
+  html[data-eff="dark"] .nav a[aria-current="page"] { background: linear-gradient(180deg, rgba(255, 255, 255, .18), rgba(255, 255, 255, .03) 55%, color-mix(in srgb, var(--blue) 28%, transparent)); }
+}
+@media (prefers-reduced-motion: reduce) { .lg-rim::after { animation: none; } .nav-ind.moving { transform: none; } }
+
+/* ---------- back to top: liquid glass ---------- */
+.to-top { overflow: visible; color: var(--blue-ink);
+  background: radial-gradient(90% 70% at 50% 18%, rgba(255, 255, 255, .7), rgba(255, 255, 255, .12) 60%), linear-gradient(180deg, rgba(255, 255, 255, .25), color-mix(in srgb, var(--blue) 16%, rgba(255, 255, 255, .1)));
+  backdrop-filter: blur(4px) saturate(2.2) brightness(1.08) contrast(1.05); -webkit-backdrop-filter: blur(4px) saturate(2.2) brightness(1.08) contrast(1.05);
+  border: 0; box-shadow: inset 0 1px 1px rgba(255, 255, 255, .95), inset 0 -1px 1px rgba(255, 255, 255, .35), inset 0 -10px 16px -8px color-mix(in srgb, var(--blue) 45%, transparent),
+    0 14px 30px -12px color-mix(in srgb, var(--blue) 60%, transparent), 0 2px 4px rgba(10, 30, 80, .12); }
+.to-top::before { content: ""; position: absolute; left: 18%; right: 18%; top: 4px; height: 42%; border-radius: 50% 50% 46% 46% / 70% 70% 30% 30%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .9), rgba(255, 255, 255, 0)); opacity: .8; pointer-events: none; }
+.to-top::after { content: ""; position: absolute; inset: 0; border-radius: 50%; padding: 1px; pointer-events: none;
+  background: conic-gradient(from 210deg, rgba(255, 255, 255, .95), rgba(255, 255, 255, .1) 25%, color-mix(in srgb, var(--cyan) 70%, #fff) 50%, rgba(255, 255, 255, .1) 75%, rgba(255, 255, 255, .95));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+.to-top:hover { background: radial-gradient(90% 70% at 50% 18%, rgba(255, 255, 255, .55), rgba(255, 255, 255, .05) 60%), linear-gradient(180deg, color-mix(in srgb, var(--blue) 55%, rgba(255, 255, 255, .2)), color-mix(in srgb, var(--blue) 85%, transparent));
+  color: #FFFFFF; transform: translateY(-3px) scale(1.06); }
+.to-top:active { transform: scale(.94); }
+.tt-arrow { z-index: 1; filter: drop-shadow(0 1px 0 rgba(255, 255, 255, .6)); }
+.to-top:hover .tt-arrow { filter: none; }
+.tt-track { stroke: rgba(255, 255, 255, .25); }
+html[data-eff="dark"] .to-top { color: #FFFFFF;
+  background: radial-gradient(90% 70% at 50% 18%, rgba(255, 255, 255, .22), rgba(255, 255, 255, .03) 60%), linear-gradient(180deg, rgba(255, 255, 255, .06), color-mix(in srgb, var(--blue) 30%, rgba(255, 255, 255, .03)));
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, .45), inset 0 -10px 16px -8px color-mix(in srgb, var(--blue) 70%, transparent), 0 14px 30px -12px color-mix(in srgb, var(--blue) 80%, transparent); }
+html[data-eff="dark"] .to-top::before { opacity: .35; }

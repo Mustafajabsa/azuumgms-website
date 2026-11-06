@@ -49,19 +49,19 @@
       el.setAttribute('placeholder', ar ? el.getAttribute('data-ph-ar') : el.getAttribute('data-ph-en'));
     });
     hooks.forEach(function (h) { h(); });
-    try { localStorage.setItem('azuum-lang', root.lang); } catch (e) {}
+    if (window.AZS) AZS.set('l', root.lang); else try { localStorage.setItem('azuum-lang', root.lang); } catch (e) {}
   }
   document.querySelectorAll('[data-lang-toggle]').forEach(function (b) { b.addEventListener('click', function () { applyLang(isAr() ? 'en' : 'ar'); }); });
 
   /* ---------- theme ---------- */
-  try { var saved = localStorage.getItem('azuum-theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
+  var saved = window.AZS ? AZS.get('t') : null; if (saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved);
   var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
   function effTheme() { var cur = root.getAttribute('data-theme'); var dark = cur ? cur === 'dark' : !!(mq && mq.matches); root.setAttribute('data-eff', dark ? 'dark' : 'light'); return dark; }
   effTheme(); if (mq && mq.addEventListener) mq.addEventListener('change', effTheme);
   document.querySelectorAll('[data-theme-toggle]').forEach(function (b) {
     b.addEventListener('click', function () {
       var next = effTheme() ? 'light' : 'dark'; root.setAttribute('data-theme', next); effTheme();
-      try { localStorage.setItem('azuum-theme', next); } catch (e) {}
+      if (window.AZS) AZS.set('t', next); else try { localStorage.setItem('azuum-theme', next); } catch (e) {}
     });
   });
 
@@ -73,7 +73,8 @@
     if (!ind) return;
     if (!el || getComputedStyle(ind).display === 'none') { ind.style.opacity = 0; return; }
     var nr = nav.getBoundingClientRect(), r = el.getBoundingClientRect();
-    ind.style.left = (r.left - nr.left) + 'px'; ind.style.width = r.width + 'px'; ind.style.opacity = 1;
+    var nl = (r.left - nr.left) + 'px'; if (ind.style.left && ind.style.left !== nl && !reduce) { ind.classList.add('moving'); clearTimeout(ind._mt); ind._mt = setTimeout(function () { ind.classList.remove('moving'); }, 260); }
+    ind.style.left = nl; ind.style.width = r.width + 'px'; ind.style.opacity = 1;
     nav.querySelectorAll('a').forEach(function (a) { a.classList.toggle('hot-l', a === el); });
   }
   if (nav && ind) {
