@@ -4,7 +4,7 @@ Bilingual (English / Arabic) marketing website for Azuum GMS, the garage managem
 
 ## Pages
 
-| File | Page |
+| File (in `docs/`) | Page |
 |---|---|
 | `index.html` | Home |
 | `modules.html` | Modules |
@@ -23,7 +23,7 @@ Bilingual (English / Arabic) marketing website for Azuum GMS, the garage managem
 - `img/`: app screenshots (WebP)
 - `video/`: product video and poster
 
-It is a static site with no build step. Upload the files to any web host, with `index.html` as the home page.
+The site lives in the `docs/` folder, which GitHub Pages publishes. It is a static site with no build step: `docs/.nojekyll` tells GitHub Pages to serve the files as they are. To host it elsewhere, upload the contents of `docs/`, with `index.html` as the home page.
 
 ## Before launch
 
